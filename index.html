@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#16241e" />
+    <title>Capitol University | AR Directory</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+    <script type="module" src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image.prod.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/aframe@1.5.0/dist/aframe-master.min.js"></script>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="#home" aria-label="Capitol University AR directory home">
+        <span class="brand-mark">CU</span>
+        <span class="brand-copy"><strong>CAPITOL UNIVERSITY</strong><small>AR DEPARTMENT DIRECTORY</small></span>
+      </a>
+      <span class="edition">CAGAYAN DE ORO <i></i> PHILIPPINES</span>
+    </header>
+
+    <main>
+      <section id="homeView" class="home-view">
+        <div class="intro">
+          <div class="eyebrow"><span></span> CAMPUS, IN A NEW DIMENSION</div>
+          <h1>Find your<br /><em>field.</em></h1>
+          <p class="intro-copy">Point your camera at the Capitol University seal to reveal the colleges. Choose one to explore its profile.</p>
+          <div class="actions">
+            <button id="scanButton" class="button button-primary" type="button"><span class="camera-icon" aria-hidden="true"></span> Start camera scan</button>
+            <button id="browseButton" class="button button-secondary" type="button">Browse directory <span aria-hidden="true">↗</span></button>
+          </div>
+          <div id="statusLine" class="status-line"><span class="status-dot"></span><span>Camera access starts when you choose to scan.</span></div>
+        </div>
+
+        <div class="scan-panel" aria-label="Camera scanning area">
+          <div class="scan-panel-head"><span>LIVE IMAGE TRACKING</span><span class="scan-id">01 / 01</span></div>
+          <div class="camera-stage">
+            <div class="stage-grid"></div>
+            <div class="target-guide"><span class="corner top-left"></span><span class="corner top-right"></span><span class="corner bottom-left"></span><span class="corner bottom-right"></span><img src="assets/cu.png" alt="Capitol University logo target" /></div>
+            <div class="stage-caption"><span class="pulse"></span> READY TO RECOGNIZE</div>
+            <div id="cameraMount" class="camera-mount" aria-live="polite"></div>
+          </div>
+          <div class="scan-panel-foot"><span>IMAGE TARGET</span><strong>CAPITOL UNIVERSITY SEAL</strong></div>
+        </div>
+
+        <section id="directory" class="directory" aria-labelledby="directoryTitle">
+          <div class="section-heading"><div><div class="eyebrow">THE UNIVERSITY</div><h2 id="directoryTitle">Eight colleges. One campus.</h2></div><span class="college-count">08 <i>COLLEGES</i></span></div>
+          <p class="source-note">Department profiles and mascot pairings are marked for verification where official source details were not available during setup.</p>
+          <div id="collegeGrid" class="college-grid"></div>
+        </section>
+      </section>
+
+      <section id="detailView" class="detail-view" hidden>
+        <button id="backButton" class="back-button" type="button"><span aria-hidden="true">←</span> All colleges</button>
+        <div class="detail-layout">
+          <div class="detail-copy">
+            <div class="eyebrow"><span></span> COLLEGE PROFILE <b id="detailCode"></b></div>
+            <div class="detail-logo-frame"><img id="detailLogo" src="" alt="" /></div>
+            <h1 id="detailName"></h1>
+            <p id="detailDescription" class="detail-description"></p>
+            <div class="verification-note"><strong>PROFILE NEEDS OFFICIAL VERIFICATION</strong><span>Confirm the department description and mascot with Capitol University before final submission.</span></div>
+          </div>
+          <div class="model-panel">
+            <div class="model-panel-head"><span>3D MASCOT STUDY</span><span id="modelIndex">01 / 08</span></div>
+            <div class="model-stage"><canvas id="mascotCanvas" aria-label="Interactive three-dimensional draft animal mascot"></canvas><div id="modelUnavailable" class="model-unavailable" hidden>3D preview unavailable<br />Check your internet connection and reload.</div><span class="model-shadow"></span><span class="model-axis">360°</span></div>
+            <div class="model-caption"><div><strong id="mascotName"></strong><span>Draft model · official pairing unverified</span></div><span class="model-live"><i></i> 3D</span></div>
+          </div>
+        </div>
+        <nav class="detail-switcher" aria-label="Select another college"><span>EXPLORE ANOTHER</span><div id="detailLinks"></div></nav>
+      </section>
+    </main>
+
+    <div id="directoryOverlay" class="directory-overlay" hidden>
+      <div class="overlay-heading"><div><div class="eyebrow">COLLEGE DIRECTORY</div><h2>Choose a college</h2></div><button id="closeDirectory" class="icon-button" type="button" aria-label="Close directory">×</button></div>
+      <div id="overlayGrid" class="college-grid overlay-grid"></div>
+    </div>
+
+    <footer><span>CAPITOL UNIVERSITY <i>·</i> AR DIRECTORY</span><span>BUILT FOR EXPLORATION</span></footer>
+    <script src="data.js"></script>
+    <script type="module" src="app.js"></script>
+  </body>
+</html>
