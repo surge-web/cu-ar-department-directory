@@ -260,16 +260,20 @@ function stopMascot() {
 }
 
 async function compileTarget() {
-  const image = document.querySelector('.target-guide img');
-  if (!image.complete || !image.naturalWidth) {
-    await new Promise((resolve, reject) => {
+  const imageTargets = [
+    document.querySelector('.target-guide img'),
+    ...document.querySelectorAll('#collegeGrid .card-logo img')
+  ];
+  await Promise.all(imageTargets.map((image) => {
+    if (image.complete && image.naturalWidth) return Promise.resolve();
+    return new Promise((resolve, reject) => {
       image.addEventListener('load', resolve, { once: true });
       image.addEventListener('error', reject, { once: true });
     });
-  }
+  }));
   const compiler = new window.MINDAR.IMAGE.Compiler();
-  await compiler.compileImageTargets([image], (progress) => {
-    statusLine.innerHTML = `<span class="status-dot"></span><span>Preparing the CU logo for scanning… ${Math.round(progress)}%</span>`;
+  await compiler.compileImageTargets(imageTargets, (progress) => {
+    statusLine.innerHTML = `<span class="status-dot"></span><span>Preparing the CU and college logos… ${Math.round(progress)}%</span>`;
   });
   const targetBlob = new Blob([compiler.exportData()], { type: 'application/octet-stream' });
   compiledTargetUrl = URL.createObjectURL(targetBlob);
@@ -294,6 +298,7 @@ async function startCameraScan() {
           </a-entity>`;
         }).join('')}
       </a-entity>
+      ${colleges.map((college, index) => `<a-entity mindar-image-target="targetIndex: ${index + 1}" id="collegeTarget-${index}"></a-entity>`).join('')}
     </a-scene>`;
     mindarScene = document.querySelector('#mindarScene');
     const target = document.querySelector('#collegeTargets');
@@ -304,6 +309,10 @@ async function startCameraScan() {
     target.addEventListener('targetLost', () => {
       document.querySelector('.target-guide').classList.remove('is-found');
       statusLine.innerHTML = '<span class="status-dot"></span><span>Point the camera at the CU logo to continue.</span>';
+    });
+    colleges.forEach((college, index) => {
+      const collegeTarget = document.querySelector(`#collegeTarget-${index}`);
+      collegeTarget.addEventListener('targetFound', () => openCollege(index));
     });
     document.addEventListener('click', onArLogoClick);
   } catch (error) {
