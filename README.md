@@ -13,7 +13,7 @@ The site must be opened over HTTPS or localhost. MindAR, A-Frame, and the font f
 
 ## Current content status
 
-The supplied PNGs are used as the CU target and eight college logos. College names are transcribed from the supplied seals. Capitol University's official website could not be retrieved during setup, and the supplied seals do not identify all eight animal mascots. Profile descriptions therefore remain clearly marked as pending, and 3D animals are draft concepts, not verified official mascot pairings. Replace `description`, `mascot`, and `animal` in `data.js` with verified CU content before presenting this as a completed official directory.
+The supplied PNGs are used as the CU target and eight college logos. College names are transcribed from the supplied seals. The eight descriptions supplied for this project are included as unverified draft copy. Capitol University's official website could not be retrieved during setup, and the supplied seals do not identify all eight animal mascots. The 3D animals are draft concepts, not verified official mascot pairings. Verify `description`, `mascot`, and `animal` in `data.js` against CU sources before presenting this as a completed official directory.
 
 The animal previews are procedural Three.js geometry, not photographs or 2D illustrations. Drag in the model stage to rotate them.
 
